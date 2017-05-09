@@ -6,7 +6,7 @@
 #    By: emandret <emandret@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/07 11:43:53 by emandret          #+#    #+#              #
-#    Updated: 2017/05/07 11:44:23 by emandret         ###   ########.fr        #
+#    Updated: 2017/05/09 23:44:11 by emandret         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,11 @@ NAME=ft_ls
 
 LIB=libft/libftprintf.a
 
-SRC=ft_ls.c
+SRC=debug.c ft_ls.c node.c  opts.c  stats.c error.c
 
 OBJ=$(SRC:.c=.o)
 
-CFLAGS=-Wall -Werror -Wextra
+CFLAGS=
 
 all: $(NAME)
 

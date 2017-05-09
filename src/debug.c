@@ -1,0 +1,62 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   debug.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/05/09 20:19:32 by emandret          #+#    #+#             */
+/*   Updated: 2017/05/09 23:05:00 by emandret         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../inc/ft_ls.h"
+
+void	ls_debug_opts(t_opts *opts)
+{
+	if (opts)
+	{
+		if (opts->opt_l)
+			printf("\e[92m    option -l ENABLED\n");
+		if (opts->opt_R)
+			printf("\e[92m    option -R ENABLED\n");
+		if (opts->opt_a)
+			printf("\e[92m    option -a ENABLED\n");
+		if (opts->opt_r)
+			printf("\e[92m    option -r ENABLED\n");
+		if (opts->opt_t)
+			printf("\e[92m    option -t ENABLED\n");
+	}
+}
+
+void	ls_debug_node(t_node *node)
+{
+	if (node)
+	{
+		printf("\e[95m    filename    = %s\n", node->filename);
+		printf("\e[93m    stats inode = %llu\n", node->stats->st_ino);
+		printf("\e[94m    stats size  = %llu\n", node->stats->st_size);
+		if (node->is_dir)
+			printf("\e[92m    is_dir      = TRUE\n");
+		else
+			printf("\e[91m    is_dir      = FALSE\n");
+		if (node->is_lnk)
+			printf("\e[92m    is_lnk      = TRUE\n");
+		else
+			printf("\e[91m    is_lnk      = FALSE\n");
+		printf("\e[39m\n");
+	}
+}
+
+void	ls_debug_list(t_node *first)
+{
+	int	i;
+
+	i = 0;
+	while (first)
+	{
+		printf("\e[96mNode %d :\n", i++);
+		ls_debug_node(first);
+		first = first->next;
+	}
+}
