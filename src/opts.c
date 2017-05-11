@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/08 17:39:05 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/10 00:04:08 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/10 22:35:25 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,8 @@ t_opts			*ls_parse_opts(int ac, char **av, int *i)
 	{
 		j = 0;
 		while (av[*i][j++])
-		{
 			if (!set_opts(av[*i][j], opts))
 				set_error(av[*i][j]);
-		}
 		(*i)++;
 	}
 	if (*i < ac && ft_strnequ("--", av[*i], 3))

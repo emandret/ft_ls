@@ -6,33 +6,46 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/08 17:34:09 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/09 23:35:27 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/11 04:07:59 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
+/*
+** Entry point, parse args, populate structs
+*/
+
 int		main(int argc, char *argv[])
 {
 	int		i;
-	t_node	*node;
 	t_opts	*opts;
-	t_bool	no_args;
+	t_bool	no_arg;
+	t_node	*first;
 
 	i = 1;
-	node = NULL;
-	no_args = TRUE;
-	if (argc > i)
+	opts = ls_parse_opts(argc, argv, &i);
+	no_arg = TRUE;
+	first = NULL;
+	if (argc > 1)
 	{
-		opts = ls_parse_opts(argc, argv, &i);
 		if (i < argc)
-			no_args = FALSE;
+			no_arg = FALSE;
 		while (i < argc)
-			node = ls_add_node(argv[i++], node);
-		ls_debug_opts(opts);
+			first = ls_add_node(argv[i++], first);
 	}
-	if (no_args && !node)
-		node = ls_add_node(".", node);
-	ls_debug_list(node);
+	if (no_arg && !first)
+		first = ls_add_node(".", first);
+	ft_ls(opts, first);
 	return (0);
+}
+
+/*
+** The ft_ls function, dispatch the nodes to the corrects functions
+*/
+
+void	ft_ls(t_opts *opts, t_node *first)
+{
+	first = ls_sort_alpha(first);
+	ls_debug_list(first); // added for debug
 }

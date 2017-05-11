@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 11:19:20 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/09 23:43:56 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/11 18:11:55 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,12 @@ void					ls_debug_node(t_node *node);
 void					ls_debug_list(t_node *first);
 
 /*
-** options
+** ft_ls
+*/
+void					ft_ls(t_opts *opts, t_node *first);
+
+/*
+** opts
 */
 t_opts					*ls_parse_opts(int ac, char **av, int *i);
 
@@ -64,8 +69,20 @@ t_node					*ls_add_node(char *filename, t_node *first);
 t_stat					*ls_file_lstat(char *filename);
 
 /*
+** dirs
+*/
+t_node					*ls_open_dir(t_opts *opts, char *dirname);
+
+/*
 ** error
 */
 void					ls_error(char *filename);
+
+/*
+** sort
+*/
+void					ls_swap_nodes(t_node *first, t_node *n1, t_node *n2);
+t_node					*ls_swap_first(t_node *first);
+t_node					*ls_sort_alpha(t_node *first);
 
 #endif
