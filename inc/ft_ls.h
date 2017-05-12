@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 11:19:20 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/11 18:11:55 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/12 23:13:43 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct			s_node
 	t_stat				*stats;
 	t_bool				is_dir;
 	t_bool				is_lnk;
+	struct s_node		*prev;
 	struct s_node		*next;
 }						t_node;
 
@@ -60,7 +61,7 @@ t_opts					*ls_parse_opts(int ac, char **av, int *i);
 /*
 ** list nodes
 */
-t_node					*ls_new_node(char *filename);
+t_node					*ls_new_node(char *filename, t_node *prev);
 t_node					*ls_add_node(char *filename, t_node *first);
 
 /*
@@ -81,8 +82,9 @@ void					ls_error(char *filename);
 /*
 ** sort
 */
-void					ls_swap_nodes(t_node *first, t_node *n1, t_node *n2);
-t_node					*ls_swap_first(t_node *first);
+t_bool					ls_check_node(t_node *node);
+void					ls_swap_nodes(t_node *n1, t_node *n2);
+void					ls_swap_first(t_node **first, t_node *n2);
 t_node					*ls_sort_alpha(t_node *first);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 20:19:32 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/09 23:05:00 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/12 19:14:11 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	ls_debug_node(t_node *node)
 {
 	if (node)
 	{
+		printf("\e[90m    prev        = %p\n", node->prev);
+		printf("\e[90m    next        = %p\n", node->next);
 		printf("\e[95m    filename    = %s\n", node->filename);
 		printf("\e[93m    stats inode = %llu\n", node->stats->st_ino);
 		printf("\e[94m    stats size  = %llu\n", node->stats->st_size);
