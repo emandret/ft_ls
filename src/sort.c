@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/11 02:45:17 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/13 03:35:16 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/13 20:49:42 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,44 @@ void	ls_swap_nodes(t_node *n1, t_node *n2)
 
 t_node	*ls_sort_alpha(t_node *first)
 {
+	t_node	*head;
+	int		i = 0; // debug
+	int		j = 0; // debug
+
+	while (i < 10)
+	{
+		head = first;
+		j = 0;
+		while (j < 10 && head->next)
+		{
+			printf("\e[93m%p => %s    \e[95mNEXT : %p => %s\n", head, head->filename, head->next, head->next->filename);
+			if (ft_strcmp(head->filename, head->next->filename) > 0)
+			{
+				if (head == first)
+				{
+					printf("\e[91mSWAP FIRST : %s WITH %s\n", first->filename, first->next->filename);
+					ls_swap_first(&first, first->next);
+					printf("\e[91mFIRST = %s\n", first->filename);
+				}
+				else
+				{
+					printf("\e[92mSWAP NODES : %s WITH %s\n", head->filename, head->next->filename);
+					ls_swap_nodes(head, head->next);
+				}
+			}
+			printf("\e[96m%p => %s    \e[93mNEXT : %p => %s\n", head, head->filename, head->next, head->next->filename);
+			head = head->next;
+			j++; // debug
+		}
+		printf("\e[91m OUT OF FIRST LOOP\n");
+		i++; // debug
+	}
+	exit(0);
 	return (first);
 }
+
+/*
+** TODO :
+** mise a jour du 1er maillon avec swap node lorsqu'on change
+** le maillon qui suit celui-ci.
+*/
