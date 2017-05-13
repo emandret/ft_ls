@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/11 02:45:17 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/12 23:14:31 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/13 03:35:16 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,5 @@ void	ls_swap_nodes(t_node *n1, t_node *n2)
 
 t_node	*ls_sort_alpha(t_node *first)
 {
-	if (ft_strcmp(first->filename, first->next->filename) < 0)
-		ls_swap_first(&first, first->next);
 	return (first);
 }

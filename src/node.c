@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 16:55:29 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/12 17:26:30 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/13 03:15:22 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,25 @@ t_node	*ls_new_node(char *filename, t_node *prev)
 
 t_node	*ls_add_node(char *filename, t_node *first)
 {
-	t_node	*cur_node;
+	t_node	*last;
 
 	if (!first)
 		return (ls_new_node(filename, NULL));
-	cur_node = first;
-	while (cur_node->next)
-		cur_node = cur_node->next;
-	cur_node->next = ls_new_node(filename, cur_node);
+	last = ls_get_last(first);
+	last->next = ls_new_node(filename, last);
 	return (first);
+}
+
+/*
+** Get the last node
+*/
+
+t_node	*ls_get_last(t_node *first)
+{
+	t_node	*head;
+
+	head = first;
+	while (head->next)
+		head = head->next;
+	return (head);
 }

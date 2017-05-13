@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 11:19:20 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/12 23:13:43 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/13 03:15:15 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ t_opts					*ls_parse_opts(int ac, char **av, int *i);
 */
 t_node					*ls_new_node(char *filename, t_node *prev);
 t_node					*ls_add_node(char *filename, t_node *first);
+t_node					*ls_get_last(t_node *first);
 
 /*
 ** stats
