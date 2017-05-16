@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 20:19:32 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/12 19:14:11 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/16 02:38:06 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,27 @@ void	ls_debug_node(t_node *node)
 		else
 			printf("\e[91m    is_lnk      = FALSE\n");
 		printf("\e[39m\n");
+	}
+}
+
+void	ls_debug_list_short(t_node *first)
+{
+	t_node	*last;
+
+	last = ls_get_last(first);
+	while (first)
+	{
+		printf("\e[95m%s \e[39m-> ", first->filename);
+		first = first->next;
+		if (!first)
+			printf("\e[91mNULL\n");
+	}
+	while (last)
+	{
+		printf("\e[96m%s \e[39m-> ", last->filename);
+		last = last->prev;
+		if (!last)
+			printf("\e[91mNULL\n");
 	}
 }
 

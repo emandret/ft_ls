@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 11:19:20 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/13 03:15:15 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/16 04:42:21 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct			s_node
 void					ls_debug_opts(t_opts *opts);
 void					ls_debug_node(t_node *node);
 void					ls_debug_list(t_node *first);
+void					ls_debug_list_short(t_node *first);
 
 /*
 ** ft_ls
@@ -81,11 +82,16 @@ t_node					*ls_open_dir(t_opts *opts, char *dirname);
 void					ls_error(char *filename);
 
 /*
+** node_swap
+*/
+void					ls_swap_detached(t_node *n1, t_node *n2);
+void					ls_swap_attached(t_node *n1, t_node *n2);
+void					ls_swap_nodes(t_node *n1, t_node *n2);
+t_bool					ls_swap_first(t_node **first, t_node *n1, t_node *n2);
+
+/*
 ** sort
 */
-t_bool					ls_check_node(t_node *node);
-void					ls_swap_nodes(t_node *n1, t_node *n2);
-void					ls_swap_first(t_node **first, t_node *n2);
 t_node					*ls_sort_alpha(t_node *first);
 
 #endif

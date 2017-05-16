@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/08 17:34:09 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/11 04:07:59 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/16 05:11:10 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int		main(int argc, char *argv[])
 
 void	ft_ls(t_opts *opts, t_node *first)
 {
+	ls_debug_list_short(first);
 	first = ls_sort_alpha(first);
-	ls_debug_list(first); // added for debug
+	ls_debug_list_short(first);
 }
