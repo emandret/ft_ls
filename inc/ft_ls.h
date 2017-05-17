@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 11:19:20 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/16 04:42:21 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/17 02:59:39 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ t_bool					ls_swap_first(t_node **first, t_node *n1, t_node *n2);
 ** sort
 */
 t_node					*ls_sort_alpha(t_node *first);
+t_node					*ls_sort_time(t_node *first);
 
 #endif
