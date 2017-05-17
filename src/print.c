@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stats.c                                            :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/09 18:24:45 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/17 19:39:28 by emandret         ###   ########.fr       */
+/*   Created: 2017/05/17 19:35:29 by emandret          #+#    #+#             */
+/*   Updated: 2017/05/17 20:27:24 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-/*
-** Get the file stats
-*/
-
-t_stat	*ls_file_lstat(char *filename)
+void	ls_print_files(t_node *first)
 {
-	t_stat	*stats;
+	t_bool	endl;
 
-	if (!(stats = (t_stat*)ft_memalloc(sizeof(t_stat))))
-		return (NULL);
-	if (!lstat(filename, stats))
-		return (stats);
-	ls_error(filename);
-	return (NULL);
+	endl = FALSE;
+	while (first)
+	{
+		if (!first->is_dir && !first->is_lnk)
+		{
+			ft_putstr(first->filename);
+			endl = TRUE;
+		}
+		if ((first = first->next))
+			ft_putchar(' ');
+	}
+	if (endl)
+		ft_putchar('\n');
 }

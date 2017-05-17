@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 11:19:20 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/17 17:50:40 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/17 19:59:23 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ t_stat					*ls_file_lstat(char *filename);
 ** dirs
 */
 t_node					*ls_open_dir(t_opts *opts, char *dirname);
+
+/*
+** print
+*/
+void					ls_print_files(t_node *first);
 
 /*
 ** error

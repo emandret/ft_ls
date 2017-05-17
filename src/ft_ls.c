@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/08 17:34:09 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/17 18:03:11 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/17 20:47:08 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,8 @@ int		main(int argc, char *argv[])
 
 void	ft_ls(t_opts *opts, t_node *first)
 {
-	t_node	*head;
-
 	ls_sort_list(&first, &ls_sort_lexi);
 	if (opts->opt_t)
 		ls_sort_list(&first, &ls_sort_time);
-	head = first;
-	while (head)
-	{
-		ft_putstr(head->filename);
-		ft_putchar(32);
-		head = head->next;
-	}
-	ft_putchar(10);
+	ls_print_files(first);
 }
