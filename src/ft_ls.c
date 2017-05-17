@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/08 17:34:09 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/17 04:07:35 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/17 18:03:11 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void	ft_ls(t_opts *opts, t_node *first)
 {
 	t_node	*head;
 
-	first = ls_sort_alpha(first);
+	ls_sort_list(&first, &ls_sort_lexi);
 	if (opts->opt_t)
-		first = ls_sort_time(first);
+		ls_sort_list(&first, &ls_sort_time);
 	head = first;
 	while (head)
 	{

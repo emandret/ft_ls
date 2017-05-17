@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/16 04:14:52 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/16 14:46:36 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/17 18:32:54 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_bool	ls_swap_first(t_node **first, t_node *n1, t_node *n2)
 	{
 		if (n1 == *first)
 			*first = n2;
-		else if (n2 == *first)
+		else
 			*first = n1;
 		return (TRUE);
 	}

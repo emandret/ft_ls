@@ -6,42 +6,27 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/11 02:45:17 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/17 03:11:03 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/17 18:03:06 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-/*
-** Bubble sort test implementation
-*/
-
-t_node	*ls_sort_alpha(t_node *first)
+t_bool	ls_sort_lexi(t_node *n1, t_node *n2)
 {
-	t_bool	sorted;
-	t_node	*head;
-
-	sorted = FALSE;
-	while (!sorted)
-	{
-		sorted = TRUE;
-		head = first;
-		while (head->next)
-		{
-			if (ft_strcmp(head->filename, head->next->filename) > 0)
-			{
-				if (ls_swap_first(&first, head, head->next))
-					head = first;
-				sorted = FALSE;
-			}
-			else
-				head = head->next;
-		}
-	}
-	return (first);
+	return ((t_bool)(ft_strcmp(n1->filename, n2->filename) > 0));
 }
 
-t_node	*ls_sort_time(t_node *first)
+t_bool	ls_sort_time(t_node *n1, t_node *n2)
+{
+	return ((t_bool)(n1->stats->st_ctime < n2->stats->st_ctime));
+}
+
+/*
+** Bubble sort
+*/
+
+void	ls_sort_list(t_node **first, t_bool (*sort)(t_node *n1, t_node *n2))
 {
 	t_bool	sorted;
 	t_node	*head;
@@ -50,18 +35,17 @@ t_node	*ls_sort_time(t_node *first)
 	while (!sorted)
 	{
 		sorted = TRUE;
-		head = first;
+		head = *first;
 		while (head->next)
 		{
-			if (head->stats->st_ctime < head->next->stats->st_ctime)
+			if ((*sort)(head, head->next))
 			{
-				if (ls_swap_first(&first, head, head->next))
-					head = first;
 				sorted = FALSE;
+				if (ls_swap_first(first, head, head->next))
+					head = *first;
 			}
 			else
 				head = head->next;
 		}
 	}
-	return (first);
 }

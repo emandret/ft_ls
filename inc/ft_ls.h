@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 11:19:20 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/17 02:59:39 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/17 17:50:40 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,9 @@ t_bool					ls_swap_first(t_node **first, t_node *n1, t_node *n2);
 /*
 ** sort
 */
-t_node					*ls_sort_alpha(t_node *first);
-t_node					*ls_sort_time(t_node *first);
+t_bool					ls_sort_time(t_node *n1, t_node *n2);
+t_bool					ls_sort_lexi(t_node *n1, t_node *n2);
+void					ls_sort_list(t_node **first,
+	t_bool (*sort)(t_node *n1, t_node *n2));
 
 #endif
