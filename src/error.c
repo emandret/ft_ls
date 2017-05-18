@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 23:39:10 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/10 00:05:15 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/18 04:39:08 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static void	ft_puterror(void)
 {
 	if (errno == ENOENT)
 		ft_putstr_fd("No such file or directory", 2);
+	if (errno == EACCES)
+		ft_putstr_fd("Permission denied", 2);
 }
 
 /*

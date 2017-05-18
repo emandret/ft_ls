@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/08 17:34:09 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/17 20:47:08 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/18 18:57:53 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ int		main(int argc, char *argv[])
 		if (i < argc)
 			no_arg = FALSE;
 		while (i < argc)
-			first = ls_add_node(argv[i++], first);
+			first = ls_add_node("./", argv[i++], first);
 	}
 	if (no_arg && !first)
-		first = ls_add_node(".", first);
+		first = ls_add_node("./", ".", first);
 	ft_ls(opts, first);
 	return (0);
 }
@@ -46,8 +46,17 @@ int		main(int argc, char *argv[])
 
 void	ft_ls(t_opts *opts, t_node *first)
 {
+	t_node	*content;
+
+	content = NULL;
 	ls_sort_list(&first, &ls_sort_lexi);
 	if (opts->opt_t)
 		ls_sort_list(&first, &ls_sort_time);
-	ls_print_files(first);
+	ls_debug_list_short(first);
+	while (first)
+	{
+		if (first->is_dir)
+			ls_debug_list_short(ls_open_dir(opts, "./", first->filename));
+		first = first->next;
+	}
 }

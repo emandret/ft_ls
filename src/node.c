@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 16:55:29 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/13 03:15:22 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/18 05:11:19 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 ** Create a new node based on the filename
 */
 
-t_node	*ls_new_node(char *filename, t_node *prev)
+t_node	*ls_new_node(char *path, char *filename, t_node *prev)
 {
 	t_node	*new_node;
 
 	if (!(new_node = (t_node*)ft_memalloc(sizeof(t_node))))
 		return (NULL);
 	new_node->filename = filename;
-	if (!(new_node->stats = ls_file_lstat(filename)))
+	if (!(new_node->stats = ls_file_lstat(path, filename)))
 		return (NULL);
 	if (S_ISDIR(new_node->stats->st_mode))
 		new_node->is_dir = TRUE;
@@ -38,14 +38,14 @@ t_node	*ls_new_node(char *filename, t_node *prev)
 ** Add a node to the directory content list
 */
 
-t_node	*ls_add_node(char *filename, t_node *first)
+t_node	*ls_add_node(char *path, char *filename, t_node *first)
 {
 	t_node	*last;
 
 	if (!first)
-		return (ls_new_node(filename, NULL));
+		return (ls_new_node(path, filename, NULL));
 	last = ls_get_last(first);
-	last->next = ls_new_node(filename, last);
+	last->next = ls_new_node(path, filename, last);
 	return (first);
 }
 

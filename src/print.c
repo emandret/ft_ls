@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 19:35:29 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/17 20:27:24 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/18 18:17:35 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ls_print_files(t_node *first)
 			ft_putstr(first->filename);
 			endl = TRUE;
 		}
-		if ((first = first->next))
+		if ((first = first->next) && endl)
 			ft_putchar(' ');
 	}
 	if (endl)

@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 11:19:20 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/17 19:59:23 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/18 18:51:05 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,21 @@ t_opts					*ls_parse_opts(int ac, char **av, int *i);
 /*
 ** list nodes
 */
-t_node					*ls_new_node(char *filename, t_node *prev);
-t_node					*ls_add_node(char *filename, t_node *first);
+t_node					*ls_new_node(char *path, char *filename, t_node *prev);
+t_node					*ls_add_node(char *path, char *filename, t_node *first);
 t_node					*ls_get_last(t_node *first);
 
 /*
 ** stats
 */
-t_stat					*ls_file_lstat(char *filename);
+t_stat					*ls_file_lstat(char *path, char *filename);
 
 /*
 ** dirs
 */
-t_node					*ls_open_dir(t_opts *opts, char *dirname);
+char					*ls_dirpath(char *path, char *dirname);
+t_bool					ls_is_dotdir(char *dirname);
+t_node					*ls_open_dir(t_opts *opts, char *path, char *dirname);
 
 /*
 ** print
