@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 12:54:13 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/18 18:52:07 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/21 01:23:53 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,31 @@ char			*ls_dirpath(char *path, char *dirname)
 	return (ft_strjoin(ft_strjoin(path, dirname), "/"));
 }
 
-t_node			*ls_open_dir(t_opts *opts, char *path, char *dirname)
+int				ls_probe_dir(t_opts *opts, char *path, char *dirname)
 {
 	DIR		*stream;
-	t_dir	*dirent;
-	t_node	*first;
+	t_node	*list;
 
-	path = ls_dirpath(path, dirname);
-	if (!(stream = opendir(path)))
+	if (!(stream = opendir((path = ls_dirpath(path, dirname)))))
 	{
 		ls_error(dirname);
-		return (NULL);
+		return (OPEN_FAILURE);
 	}
-	first = NULL;
+	list = ls_open_dir(stream, opts, path);
+	ls_debug_list_short(list);
+	return (OPEN_SUCCESS);
+}
+
+t_node			*ls_open_dir(DIR *stream, t_opts *opts, char *path)
+{
+	t_dir	*dirent;
+	t_node	*list;
+
+	list = NULL;
 	while ((dirent = readdir(stream)))
-		first = ls_add_node(path, dirent->d_name, first);
-	ls_sort_list(&first, &ls_sort_lexi);
+		list = ls_add_node(path, dirent->d_name, list);
+	ls_sort_list(&list, &ls_sort_lexi);
 	if (opts->opt_t)
-		ls_sort_list(&first, &ls_sort_time);
-	return (first);
+		ls_sort_list(&list, &ls_sort_time);
+	return (list);
 }

@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/08 17:34:09 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/18 18:57:53 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/21 01:23:59 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,24 @@
 int		main(int argc, char *argv[])
 {
 	int		i;
+	t_node	*list;
 	t_opts	*opts;
 	t_bool	no_arg;
-	t_node	*first;
 
 	i = 1;
+	list = NULL;
 	opts = ls_parse_opts(argc, argv, &i);
 	no_arg = TRUE;
-	first = NULL;
 	if (argc > 1)
 	{
 		if (i < argc)
 			no_arg = FALSE;
 		while (i < argc)
-			first = ls_add_node("./", argv[i++], first);
+			list = ls_add_node("./", argv[i++], list);
 	}
-	if (no_arg && !first)
-		first = ls_add_node("./", ".", first);
-	ft_ls(opts, first);
+	if (no_arg && !list)
+		list = ls_add_node("./", ".", list);
+	ft_ls(opts, list);
 	return (0);
 }
 
@@ -44,19 +44,19 @@ int		main(int argc, char *argv[])
 ** The ft_ls function, dispatch the nodes to the corrects functions
 */
 
-void	ft_ls(t_opts *opts, t_node *first)
+void	ft_ls(t_opts *opts, t_node *list)
 {
 	t_node	*content;
 
 	content = NULL;
-	ls_sort_list(&first, &ls_sort_lexi);
+	ls_sort_list(&list, &ls_sort_lexi);
 	if (opts->opt_t)
-		ls_sort_list(&first, &ls_sort_time);
-	ls_debug_list_short(first);
-	while (first)
+		ls_sort_list(&list, &ls_sort_time);
+	ls_debug_list_short(list);
+	while (list)
 	{
-		if (first->is_dir)
-			ls_debug_list_short(ls_open_dir(opts, "./", first->filename));
-		first = first->next;
+		if (list->is_dir)
+			ls_probe_dir(opts, "./", list->filename);
+		list = list->next;
 	}
 }

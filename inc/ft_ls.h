@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 11:19:20 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/18 18:51:05 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/21 01:22:43 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <sys/stat.h>
 # include <sys/errno.h>
 # include <dirent.h>
+
+# define OPEN_FAILURE -1
+# define OPEN_SUCCESS 0
 
 typedef struct dirent	t_dir;
 typedef struct stat		t_stat;
@@ -76,7 +79,8 @@ t_stat					*ls_file_lstat(char *path, char *filename);
 */
 char					*ls_dirpath(char *path, char *dirname);
 t_bool					ls_is_dotdir(char *dirname);
-t_node					*ls_open_dir(t_opts *opts, char *path, char *dirname);
+int						ls_probe_dir(t_opts *opts, char *path, char *dirname);
+t_node					*ls_open_dir(DIR *stream, t_opts *opts, char *path);
 
 /*
 ** print
