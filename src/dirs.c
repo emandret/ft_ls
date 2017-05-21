@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 12:54:13 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/21 01:23:53 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/21 03:17:38 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ t_bool			ls_is_dotdir(char *dirname)
 
 char			*ls_dirpath(char *path, char *dirname)
 {
+	if (ls_is_dotdir(dirname))
+		return (path);
 	if (path[ft_strlen(path) - 1] != '/')
 		path = ft_strjoin(path, "/");
 	return (ft_strjoin(ft_strjoin(path, dirname), "/"));
@@ -28,14 +30,29 @@ int				ls_probe_dir(t_opts *opts, char *path, char *dirname)
 {
 	DIR		*stream;
 	t_node	*list;
+	t_node	*head;
 
 	if (!(stream = opendir((path = ls_dirpath(path, dirname)))))
 	{
 		ls_error(dirname);
 		return (OPEN_FAILURE);
 	}
-	list = ls_open_dir(stream, opts, path);
-	ls_debug_list_short(list);
+	if ((list = ls_open_dir(stream, opts, path)))
+	{
+		head = list;
+		while (head)
+		{
+			if (opts->opt_R && head->is_dir && !ls_is_dotdir(head->filename))
+				ls_probe_dir(opts, path, head->filename);
+			head = head->next;
+		}
+		/* debug */
+		printf("%s:\n", path);
+		ls_debug_list_short(list);
+		printf("\n\n");
+		/* end debug */
+	}
+	closedir(stream);
 	return (OPEN_SUCCESS);
 }
 
