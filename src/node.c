@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 16:55:29 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/18 05:11:19 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/21 17:13:56 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_node	*ls_new_node(char *path, char *filename, t_node *prev)
 
 	if (!(new_node = (t_node*)ft_memalloc(sizeof(t_node))))
 		return (NULL);
-	new_node->filename = filename;
+	new_node->filename = ft_strdup(filename);
 	if (!(new_node->stats = ls_file_lstat(path, filename)))
 		return (NULL);
 	if (S_ISDIR(new_node->stats->st_mode))
