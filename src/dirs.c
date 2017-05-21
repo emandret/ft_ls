@@ -6,25 +6,11 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 12:54:13 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/21 03:17:38 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/21 04:55:55 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
-
-t_bool			ls_is_dotdir(char *dirname)
-{
-	return ((t_bool)(!ft_strcmp(dirname, ".") || !ft_strcmp(dirname, "..")));
-}
-
-char			*ls_dirpath(char *path, char *dirname)
-{
-	if (ls_is_dotdir(dirname))
-		return (path);
-	if (path[ft_strlen(path) - 1] != '/')
-		path = ft_strjoin(path, "/");
-	return (ft_strjoin(ft_strjoin(path, dirname), "/"));
-}
 
 int				ls_probe_dir(t_opts *opts, char *path, char *dirname)
 {
@@ -32,7 +18,7 @@ int				ls_probe_dir(t_opts *opts, char *path, char *dirname)
 	t_node	*list;
 	t_node	*head;
 
-	if (!(stream = opendir((path = ls_dirpath(path, dirname)))))
+	if (!(stream = opendir((path = ls_path(path, dirname)))))
 	{
 		ls_error(dirname);
 		return (OPEN_FAILURE);
@@ -47,7 +33,7 @@ int				ls_probe_dir(t_opts *opts, char *path, char *dirname)
 			head = head->next;
 		}
 		/* debug */
-		printf("%s:\n", path);
+		printf("%s:\n", path); // if a directory node and another node (2 nodes including 1 dir)
 		ls_debug_list_short(list);
 		printf("\n\n");
 		/* end debug */
@@ -67,5 +53,5 @@ t_node			*ls_open_dir(DIR *stream, t_opts *opts, char *path)
 	ls_sort_list(&list, &ls_sort_lexi);
 	if (opts->opt_t)
 		ls_sort_list(&list, &ls_sort_time);
-	return (list);
+	return (list); // si -R, reverse la liste
 }

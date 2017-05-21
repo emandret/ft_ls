@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stats.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/09 18:24:45 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/21 04:33:30 by emandret         ###   ########.fr       */
+/*   Created: 2017/05/21 04:07:04 by emandret          #+#    #+#             */
+/*   Updated: 2017/05/21 04:38:34 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-/*
-** Get the file stats
-*/
-
-t_stat	*ls_file_lstat(char *path, char *filename)
+t_bool	ls_is_dotdir(char *dirname)
 {
-	t_stat	*stats;
+	return ((t_bool)(!ft_strcmp(dirname, ".") || !ft_strcmp(dirname, "..")));
+}
 
-	if (!(stats = (t_stat*)ft_memalloc(sizeof(t_stat))))
-		return (NULL);
-	if (!lstat(ft_strjoin(path, filename), stats))
-		return (stats);
-	ls_error(filename);
-	return (NULL);
+t_bool	ls_has_trailing(char *filename, char c)
+{
+	return ((t_bool)(c == filename[ft_strlen(filename) - 1]));
+}
+
+char	*ls_path(char *path, char *dirname)
+{
+	if (ls_is_dotdir(dirname))
+		return (ft_strjoin(dirname, "/"));
+	return (ft_strjoin(ft_strjoin(path, dirname), "/"));
 }

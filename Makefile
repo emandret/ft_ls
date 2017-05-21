@@ -6,7 +6,7 @@
 #    By: emandret <emandret@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/07 11:43:53 by emandret          #+#    #+#              #
-#    Updated: 2017/05/18 04:12:40 by emandret         ###   ########.fr        #
+#    Updated: 2017/05/21 04:14:24 by emandret         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME=ft_ls
 
 LIB=libft/libftprintf.a
 
-SRC=debug.c ft_ls.c node.c opts.c stats.c error.c sort.c node_swap.c print.c dirs.c
+SRC=debug.c ft_ls.c node.c opts.c stats.c error.c sort.c node_swap.c print.c \
+dirs.c utils.c
 
 OBJ=$(SRC:.c=.o)
 
