@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 12:54:13 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/21 08:14:08 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/21 18:31:40 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int				ls_probe_dir(t_opts *opts, char *path, char *dirname)
 		head = list;
 		while (head)
 		{
-			if (opts->opt_R && head->is_dir && !ls_is_dotdir(head->filename))
+			if (opts->opt_R && head->is_dir && !IS_DOTDIR(head->filename))
 				ls_probe_dir(opts, path, head->filename);
 			head = head->next;
 		}
@@ -50,10 +50,6 @@ t_node			*ls_open_dir(DIR *stream, t_opts *opts, char *path)
 	list = NULL;
 	while ((dirent = readdir(stream)))
 		list = ls_add_node(path, dirent->d_name, list);
-	ls_sort_list(&list, &ls_sort_lexi);
-	if (opts->opt_t)
-		ls_sort_list(&list, &ls_sort_time);
-	if (opts->opt_r)
-		ls_reverse_list(&list);
+	ls_reorder_list(opts, &list);
 	return (list);
 }

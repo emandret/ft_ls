@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/11 02:45:17 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/21 07:54:40 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/21 18:30:39 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,13 @@ void	ls_reverse_list(t_node **first)
 	}
 	if (prev)
 		*first = prev->prev;
+}
+
+void	ls_reorder_list(t_opts *opts, t_node **first)
+{
+	ls_sort_list(first, &ls_sort_lexi);
+	if (opts->opt_t)
+		ls_sort_list(first, &ls_sort_time);
+	if (opts->opt_r)
+		ls_reverse_list(first);
 }

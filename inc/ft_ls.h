@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 11:19:20 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/21 07:56:22 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/21 18:31:13 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 
 # define OPEN_FAILURE -1
 # define OPEN_SUCCESS 0
+
+# define IS_DIRLNK(list, opts) (list->is_dir || (list->is_lnk && !opts->opt_l))
+# define IS_DOTDIR(dir) (!ft_strcmp(dir, ".") || !ft_strcmp(dir, ".."))
+# define IS_TRAILN(path) ('/' == path[ft_strlen(path) - 1])
 
 typedef struct dirent	t_dir;
 typedef struct stat		t_stat;
@@ -106,12 +110,11 @@ t_bool					ls_sort_lexi(t_node *n1, t_node *n2);
 void					ls_sort_list(t_node **first,
 	t_bool (*sort)(t_node *n1, t_node *n2));
 void					ls_reverse_list(t_node **first);
+void					ls_reorder_list(t_opts *opts, t_node **first);
 
 /*
 ** utils
 */
-t_bool					ls_is_dotdir(char *dirname);
-t_bool					ls_has_trailing(char *filename, char c);
 char					*ls_path(char *path, char *dirname);
 
 #endif
