@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/08 17:34:09 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/21 04:39:19 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/21 07:57:24 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	ft_ls(t_opts *opts, t_node *list)
 	ls_sort_list(&list, &ls_sort_lexi);
 	if (opts->opt_t)
 		ls_sort_list(&list, &ls_sort_time);
+	if (opts->opt_r)
+		ls_reverse_list(&list);
 	while (list)
 	{
 		if (list->is_dir)

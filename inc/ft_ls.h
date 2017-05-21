@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 11:19:20 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/21 04:14:02 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/21 07:56:22 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ t_bool					ls_sort_time(t_node *n1, t_node *n2);
 t_bool					ls_sort_lexi(t_node *n1, t_node *n2);
 void					ls_sort_list(t_node **first,
 	t_bool (*sort)(t_node *n1, t_node *n2));
+void					ls_reverse_list(t_node **first);
 
 /*
 ** utils

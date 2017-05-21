@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 12:54:13 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/21 04:55:55 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/21 08:14:08 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ int				ls_probe_dir(t_opts *opts, char *path, char *dirname)
 	}
 	if ((list = ls_open_dir(stream, opts, path)))
 	{
+		/* debug */
+		printf("\e[92m%s:\n", path); // if a directory node and another node (2 nodes including 1 dir)
+		ls_debug_list_short(list);
+		printf("\n");
+		/* end debug */
 		head = list;
 		while (head)
 		{
@@ -32,11 +37,6 @@ int				ls_probe_dir(t_opts *opts, char *path, char *dirname)
 				ls_probe_dir(opts, path, head->filename);
 			head = head->next;
 		}
-		/* debug */
-		printf("%s:\n", path); // if a directory node and another node (2 nodes including 1 dir)
-		ls_debug_list_short(list);
-		printf("\n\n");
-		/* end debug */
 	}
 	closedir(stream);
 	return (OPEN_SUCCESS);
@@ -53,5 +53,7 @@ t_node			*ls_open_dir(DIR *stream, t_opts *opts, char *path)
 	ls_sort_list(&list, &ls_sort_lexi);
 	if (opts->opt_t)
 		ls_sort_list(&list, &ls_sort_time);
-	return (list); // si -R, reverse la liste
+	if (opts->opt_r)
+		ls_reverse_list(&list);
+	return (list);
 }
