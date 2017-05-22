@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 11:19:20 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/21 18:31:13 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/22 20:07:50 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <sys/stat.h>
 # include <sys/errno.h>
 # include <dirent.h>
+# include <stdio.h>
 
 # define OPEN_FAILURE -1
 # define OPEN_SUCCESS 0
