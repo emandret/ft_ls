@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 23:29:31 by emandret          #+#    #+#             */
-/*   Updated: 2017/04/25 20:08:32 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/27 08:14:12 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ static void	convert_modi(t_format *format)
 		format->modifier = LL;
 }
 
-t_format	*pf_parser(const char **s, t_format *format)
+t_format	*pf_parser(const char **s, t_format *format, va_list ap)
 {
 	(*s)++;
 	pf_parse_flag(s, format);
-	pf_parse_numb(s, format);
+	pf_parse_numb(s, format, ap);
 	pf_parse_modi(s, format);
 	pf_parse_conv(s, format);
 	convert_modi(format);

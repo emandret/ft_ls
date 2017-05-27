@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 12:54:13 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/27 07:44:52 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/27 08:15:53 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int				ls_probe_dir(t_opts *opts, char *path, char *dirname)
 		{
 			if (opts->endl)
 				ft_putchar('\n');
-			ft_printf("\e[92m%s:\e[39m\n", path);
+			ft_printf("\e[92m%.*s:\e[39m\n", ft_strlen(path) - 1, path);
 		}
 		opts->endl = TRUE;
 		opts->path = TRUE;

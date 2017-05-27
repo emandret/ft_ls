@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 23:30:57 by emandret          #+#    #+#             */
-/*   Updated: 2017/04/20 00:57:51 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/27 08:14:20 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int			ft_printf(const char *restrict format, ...);
 /*
 ** pf_parser
 */
-t_format	*pf_parser(const char **s, t_format *format);
+t_format	*pf_parser(const char **s, t_format *format, va_list ap);
 void		pf_parse_flag(const char **s, t_format *format);
-void		pf_parse_numb(const char **s, t_format *format);
+void		pf_parse_numb(const char **s, t_format *format, va_list ap);
 void		pf_parse_modi(const char **s, t_format *format);
 void		pf_parse_conv(const char **s, t_format *format);
 
