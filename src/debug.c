@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 20:19:32 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/16 02:38:06 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/27 00:05:22 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ void	ls_debug_opts(t_opts *opts)
 {
 	if (opts)
 	{
-		if (opts->opt_l)
+		if (opts->l)
 			printf("\e[92m    option -l ENABLED\n");
-		if (opts->opt_R)
+		if (opts->R)
 			printf("\e[92m    option -R ENABLED\n");
-		if (opts->opt_a)
+		if (opts->a)
 			printf("\e[92m    option -a ENABLED\n");
-		if (opts->opt_r)
+		if (opts->r)
 			printf("\e[92m    option -r ENABLED\n");
-		if (opts->opt_t)
+		if (opts->t)
 			printf("\e[92m    option -t ENABLED\n");
 	}
 }

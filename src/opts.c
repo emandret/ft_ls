@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/08 17:39:05 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/10 22:35:25 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/27 00:05:48 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ static t_bool	set_opts(char c, t_opts *opts)
 	if (ft_strchr("lRart", c))
 	{
 		if ('l' == c)
-			opts->opt_l = TRUE;
+			opts->l = TRUE;
 		if ('R' == c)
-			opts->opt_R = TRUE;
+			opts->R = TRUE;
 		if ('a' == c)
-			opts->opt_a = TRUE;
+			opts->a = TRUE;
 		if ('r' == c)
-			opts->opt_r = TRUE;
+			opts->r = TRUE;
 		if ('t' == c)
-			opts->opt_t = TRUE;
+			opts->t = TRUE;
 		return (TRUE);
 	}
 	return (FALSE);

@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 11:19:20 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/22 20:07:50 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/27 07:34:18 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,30 @@
 # define OPEN_FAILURE -1
 # define OPEN_SUCCESS 0
 
-# define IS_DIRLNK(list, opts) (list->is_dir || (list->is_lnk && !opts->opt_l))
+# define IS_DIRLNK(list, opts) (list->is_dir || (list->is_lnk && !opts->l))
 # define IS_DOTDIR(dir) (!ft_strcmp(dir, ".") || !ft_strcmp(dir, ".."))
 # define IS_TRAILN(path) ('/' == path[ft_strlen(path) - 1])
+# define IS_HIDDEN(file) ('.' == *file)
 
 typedef struct dirent	t_dir;
 typedef struct stat		t_stat;
 
+typedef enum			e_print
+{
+	S_ALL,
+	S_NOT_DIRLNK,
+	S_NOT_HIDDEN
+}						t_print;
+
 typedef struct			s_opts
 {
-	t_bool				opt_l;
-	t_bool				opt_R;
-	t_bool				opt_a;
-	t_bool				opt_r;
-	t_bool				opt_t;
+	t_bool				l;
+	t_bool				R;
+	t_bool				a;
+	t_bool				r;
+	t_bool				t;
+	t_bool				path;
+	t_bool				endl;
 }						t_opts;
 
 typedef struct			s_node
@@ -88,7 +98,7 @@ t_node					*ls_open_dir(DIR *stream, t_opts *opts, char *path);
 /*
 ** print
 */
-void					ls_print_files(t_node *first);
+void					ls_print_files(t_opts *opts, t_node *list, t_print print_opts);
 
 /*
 ** error
@@ -117,5 +127,7 @@ void					ls_reorder_list(t_opts *opts, t_node **first);
 ** utils
 */
 char					*ls_path(char *path, char *dirname);
+int						ls_list_size(t_node *first);
+int						ls_count_dir(t_opts *opts, t_node *first);
 
 #endif

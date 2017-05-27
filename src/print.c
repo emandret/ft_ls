@@ -6,27 +6,20 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 19:35:29 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/18 18:17:35 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/27 07:34:33 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-void	ls_print_files(t_node *first)
+void	ls_print_files(t_opts *opts, t_node *list, t_print print_opts)
 {
-	t_bool	endl;
-
-	endl = FALSE;
-	while (first)
+	while (list)
 	{
-		if (!first->is_dir && !first->is_lnk)
-		{
-			ft_putstr(first->filename);
-			endl = TRUE;
-		}
-		if ((first = first->next) && endl)
-			ft_putchar(' ');
+		if ((print_opts == S_ALL) ||
+			(print_opts == S_NOT_DIRLNK && !IS_DIRLNK(list, opts)) ||
+			(print_opts == S_NOT_HIDDEN && !IS_HIDDEN(list->filename)))
+			ft_putendl(list->filename);
+		list = list->next;
 	}
-	if (endl)
-		ft_putchar('\n');
 }

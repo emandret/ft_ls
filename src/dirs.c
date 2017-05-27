@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 12:54:13 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/21 18:31:40 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/27 07:44:52 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,24 @@ int				ls_probe_dir(t_opts *opts, char *path, char *dirname)
 	}
 	if ((list = ls_open_dir(stream, opts, path)))
 	{
-		/* debug */
-		printf("\e[92m%s:\n", path); // if a directory node and another node (2 nodes including 1 dir)
-		ls_debug_list_short(list);
-		printf("\n");
-		/* end debug */
+		if (opts->path || (opts->path && opts->R))
+		{
+			if (opts->endl)
+				ft_putchar('\n');
+			ft_printf("\e[92m%s:\e[39m\n", path);
+		}
+		opts->endl = TRUE;
+		opts->path = TRUE;
+		ls_print_files(opts, list, S_NOT_HIDDEN);
 		head = list;
 		while (head)
 		{
-			if (opts->opt_R && head->is_dir && !IS_DOTDIR(head->filename))
+			if (opts->R && head->is_dir && !IS_DOTDIR(head->filename))
 				ls_probe_dir(opts, path, head->filename);
 			head = head->next;
 		}
 	}
+	// free memory here
 	closedir(stream);
 	return (OPEN_SUCCESS);
 }

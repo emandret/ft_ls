@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/08 17:34:09 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/21 18:31:19 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/27 07:26:19 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,13 @@ void	ft_ls(t_opts *opts, t_node *list)
 
 	content = NULL;
 	ls_reorder_list(opts, &list);
+	ls_print_files(opts, list, S_NOT_DIRLNK);
+	if (ls_list_size(list) > 1 && ls_count_dir(opts, list) > 0)
+	{
+		opts->path = TRUE;
+		if (ls_list_size(list) != ls_count_dir(opts, list))
+			opts->endl = TRUE;
+	}
 	while (list)
 	{
 		if (IS_DIRLNK(list, opts))
