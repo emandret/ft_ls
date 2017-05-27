@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 12:54:13 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/27 08:15:53 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/27 09:42:22 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int				ls_probe_dir(t_opts *opts, char *path, char *dirname)
 		}
 		opts->endl = TRUE;
 		opts->path = TRUE;
-		ls_print_files(opts, list, S_NOT_HIDDEN);
+		ls_print(opts, list);
 		head = list;
 		while (head)
 		{

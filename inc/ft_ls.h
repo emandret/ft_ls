@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 11:19:20 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/27 07:34:18 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/27 09:35:49 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,12 @@
 # define OPEN_SUCCESS 0
 
 # define IS_DIRLNK(list, opts) (list->is_dir || (list->is_lnk && !opts->l))
-# define IS_DOTDIR(dir) (!ft_strcmp(dir, ".") || !ft_strcmp(dir, ".."))
+# define IS_DOTDIR(file) (!ft_strcmp(file, ".") || !ft_strcmp(file, ".."))
 # define IS_TRAILN(path) ('/' == path[ft_strlen(path) - 1])
-# define IS_HIDDEN(file) ('.' == *file)
+# define IS_HIDDEN(file) ('.' == *file || IS_DOTDIR(file))
 
 typedef struct dirent	t_dir;
 typedef struct stat		t_stat;
-
-typedef enum			e_print
-{
-	S_ALL,
-	S_NOT_DIRLNK,
-	S_NOT_HIDDEN
-}						t_print;
 
 typedef struct			s_opts
 {
@@ -98,7 +91,8 @@ t_node					*ls_open_dir(DIR *stream, t_opts *opts, char *path);
 /*
 ** print
 */
-void					ls_print_files(t_opts *opts, t_node *list, t_print print_opts);
+void					ls_print(t_opts *opts, t_node *list);
+void					ls_print_file(t_opts *opts, t_node *list);
 
 /*
 ** error
