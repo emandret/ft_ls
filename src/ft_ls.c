@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/08 17:34:09 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/29 12:07:03 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/29 19:54:23 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_ls(t_opts *opts, t_node *first)
 	}
 	while (first)
 	{
-		if (first->types->is_dir || (first->types->is_lnk && !opts->l))
+		if (first->type == 'd' || (first->type == 'l' && !opts->l))
 			ls_probe_dir(opts, "", first->filename);
 		first = first->next;
 	}

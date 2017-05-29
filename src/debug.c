@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 20:19:32 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/29 07:46:12 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/29 19:56:03 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ void	ls_debug_node(t_node *node)
 		printf("\e[95m    target      = %s\n", node->target);
 		printf("\e[93m    hard links  = %d\n", node->stats->st_nlink);
 		printf("\e[94m    size        = %llu\n", node->stats->st_size);
-		if (node->types->is_dir)
+		if (node->type == 'd')
 			printf("\e[92m    is_dir      = TRUE\n");
 		else
 			printf("\e[91m    is_dir      = FALSE\n");
-		if (node->types->is_lnk)
+		if (node->type == 'l')
 			printf("\e[92m    is_lnk      = TRUE\n");
 		else
 			printf("\e[91m    is_lnk      = FALSE\n");

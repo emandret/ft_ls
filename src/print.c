@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 19:35:29 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/29 12:08:31 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/29 22:13:15 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@
 
 static void	color_print(t_node *node)
 {
-	if (node->types->is_reg)
+	if (node->type == '-')
 		ft_printf("%s\n", node->filename);
-	else if (node->types->is_dir)
+	else if (node->type == 'd')
 		ft_printf("\e[1m\e[96m%s\e[39m\e[0m\n", node->filename);
-	else if (node->types->is_lnk)
+	else if (node->type == 'l')
 		ft_printf("\e[35m%s\e[39m\n", node->filename);
-	else if (node->types->is_chr)
+	else if (node->type == 'c')
 		ft_printf("\e[43m\e[34m%s\e[39m\e[49m\n", node->filename);
-	else if (node->types->is_blk)
+	else if (node->type == 'b')
 		ft_printf("\e[46m\e[34m%s\e[39m\e[49m\n", node->filename);
-	else if (node->types->is_fifo)
+	else if (node->type == 'p')
 		ft_printf("\e[33m%s\e[39m\n", node->filename);
-	else if (node->types->is_sock)
+	else if (node->type == 's')
 		ft_printf("\e[32m%s\e[39m\n", node->filename);
 }
 

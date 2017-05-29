@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 12:54:13 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/29 09:12:09 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/29 19:56:23 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int				ls_probe_dir(t_opts *opts, char *path, char *dirname)
 		head = first;
 		while (head)
 		{
-			if (opts->R && head->types->is_dir && !IS_DOTDIR(head->filename) &&
+			if (opts->R && head->type == 'd' && !IS_DOTDIR(head->filename) &&
 				(!IS_HIDDEN(head->filename) || opts->a))
 				ls_probe_dir(opts, path, head->filename);
 			head = head->next;

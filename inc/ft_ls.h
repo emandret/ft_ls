@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 11:19:20 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/29 17:21:12 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/29 20:31:09 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@
 # include <pwd.h>
 # include <grp.h>
 
-# define IS_DIRLNK(node) (node->types->is_dir || node->types->is_lnk)
+# define IS_DIRLNK(node) (node->type == 'd' || node->type == 'l')
 # define IS_DOTDIR(filename) (!ft_strcmp(filename, ".") || !ft_strcmp(filename, ".."))
 # define IS_HIDDEN(filename) ('.' == *filename || IS_DOTDIR(filename))
+
+# define TARGET_SIZE 1024
 
 typedef struct dirent	t_dir;
 typedef struct stat		t_stat;
@@ -45,30 +47,16 @@ typedef struct			s_opts
 }						t_opts;
 
 /*
-** The different file types supported in UNIX
-*/
-typedef struct			s_types
-{
-	t_bool				is_reg;
-	t_bool				is_dir;
-	t_bool				is_lnk;
-	t_bool				is_chr;
-	t_bool				is_blk;
-	t_bool				is_fifo;
-	t_bool				is_sock;
-}						t_types;
-
-/*
 ** The node. It contains a lot of informations about a file or a directory
 */
 typedef struct			s_node
 {
+	char				type;
 	char				*filename;
-	char				target[1024];
+	char				target[TARGET_SIZE];
 	t_stat				*stats;
 	t_user				*user;
 	t_group				*group;
-	t_types				*types;
 	struct s_node		*prev;
 	struct s_node		*next;
 }						t_node;
@@ -127,9 +115,15 @@ t_node					*ls_open_dir(DIR *stream, t_opts *opts, char *path);
 int						ls_probe_dir(t_opts *opts, char *path, char *dirname);
 
 /*
+** perms.c -- Retrieve permissions
+*/
+char					*ls_get_perms(char type, mode_t mode);
+
+/*
 ** utils.c -- Utilities functions
 */
 int						ls_total_blocks(t_node *first);
+char					ls_get_type(mode_t mode);
 
 /*
 ** print.c -- Printing

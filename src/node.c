@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 16:55:29 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/29 09:03:12 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/29 19:50:05 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void			ls_free_node(t_node *node)
 	{
 		ft_memdel((void**)&node->filename);
 		ft_memdel((void**)&node->stats);
-		ft_memdel((void**)&node->types);
 		ft_memdel((void**)&node);
 	}
 }
