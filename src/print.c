@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 19:35:29 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/29 08:05:59 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/29 08:41:46 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,20 @@
 
 static void	color_print(t_node *node)
 {
-	if (node->types->is_dir)
-		ft_printf("\e[96m%s\e[39m\n", node->filename);
+	if (node->types->is_reg)
+		ft_printf("%s\n", node->filename);
+	else if (node->types->is_dir)
+		ft_printf("\e[1m\e[96m%s\e[39m\e[0m\n", node->filename);
 	else if (node->types->is_lnk)
 		ft_printf("\e[35m%s\e[39m\n", node->filename);
-	else
-		ft_printf("%s\n", node->filename);
+	else if (node->types->is_chr)
+		ft_printf("\e[43m\e[34m%s\e[39m\e[49m\n", node->filename);
+	else if (node->types->is_blk)
+		ft_printf("\e[46m\e[34m%s\e[39m\e[49m\n", node->filename);
+	else if (node->types->is_fifo)
+		ft_printf("\e[33m%s\e[39m\n", node->filename);
+	else if (node->types->is_sock)
+		ft_printf("\e[32m%s\e[39m\n", node->filename);
 }
 
 /*

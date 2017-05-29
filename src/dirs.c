@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 12:54:13 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/29 07:51:14 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/29 08:52:02 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,23 @@ static char		*set_path(char *path, char *dirname)
 	if (IS_DOTDIR(dirname))
 		return (ft_strjoin(dirname, "/"));
 	return (ft_strjoin(ft_strjoin(path, dirname), "/"));
+}
+
+/*
+** Print the content of the directory. Print the path header if necessary
+*/
+
+static void		print_ctn(t_opts *opts, t_node *first, char *path)
+{
+	if (opts->path || (opts->path && opts->R))
+	{
+		if (opts->endl)
+			ft_putchar('\n');
+		ft_printf("\e[106m\e[30m%.*s:\e[39m\e[49m\n", ft_strlen(path) - 1, path);
+	}
+	opts->endl = TRUE;
+	opts->path = TRUE;
+	ls_print(opts, first, TRUE);
 }
 
 /*
@@ -58,15 +75,7 @@ int				ls_probe_dir(t_opts *opts, char *path, char *dirname)
 	}
 	if ((first = ls_open_dir(stream, opts, path)))
 	{
-		if (opts->path || (opts->path && opts->R))
-		{
-			if (opts->endl)
-				ft_putchar('\n');
-			ft_printf("\e[92m%.*s:\e[39m\n", ft_strlen(path) - 1, path);
-		}
-		opts->endl = TRUE;
-		opts->path = TRUE;
-		ls_print(opts, first, TRUE);
+		print_ctn(opts, first, path);
 		head = first;
 		while (head)
 		{
@@ -76,7 +85,6 @@ int				ls_probe_dir(t_opts *opts, char *path, char *dirname)
 			head = head->next;
 		}
 	}
-	// free memory here
 	closedir(stream);
 	return (0);
 }
