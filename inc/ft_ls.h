@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 11:19:20 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/27 09:35:49 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/29 05:51:00 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,23 @@
 
 # include "../libft/src/printf/inc/ft_printf.h"
 
-# include <sys/stat.h>
+# include <uuid/uuid.h>
+# include <sys/types.h>
 # include <sys/errno.h>
+# include <sys/stat.h>
 # include <dirent.h>
 # include <stdio.h>
-
-# define OPEN_FAILURE -1
-# define OPEN_SUCCESS 0
+# include <pwd.h>
+# include <grp.h>
 
 # define IS_DIRLNK(list, opts) (list->is_dir || (list->is_lnk && !opts->l))
 # define IS_DOTDIR(file) (!ft_strcmp(file, ".") || !ft_strcmp(file, ".."))
-# define IS_TRAILN(path) ('/' == path[ft_strlen(path) - 1])
 # define IS_HIDDEN(file) ('.' == *file || IS_DOTDIR(file))
 
 typedef struct dirent	t_dir;
 typedef struct stat		t_stat;
+typedef struct passwd	t_user;
+typedef struct group	t_group;
 
 typedef struct			s_opts
 {
@@ -45,7 +47,10 @@ typedef struct			s_opts
 typedef struct			s_node
 {
 	char				*filename;
+	char				target[1024];
 	t_stat				*stats;
+	t_user				*user;
+	t_group				*group;
 	t_bool				is_dir;
 	t_bool				is_lnk;
 	struct s_node		*prev;
@@ -81,6 +86,8 @@ t_node					*ls_get_last(t_node *first);
 ** stats
 */
 t_stat					*ls_file_lstat(char *path, char *filename);
+void					ls_link_target(char *path, t_node *node);
+t_bool					ls_user_infos(t_node *node);
 
 /*
 ** dirs

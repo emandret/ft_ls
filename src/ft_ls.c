@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/08 17:34:09 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/27 09:41:41 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/29 02:58:39 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	ft_ls(t_opts *opts, t_node *list)
 	t_node	*content;
 
 	content = NULL;
+	ls_debug_list(list);
 	ls_reorder_list(opts, &list);
 	ls_print_file(opts, list);
 	if (ls_list_size(list) > 1 && ls_count_dir(opts, list) > 0)

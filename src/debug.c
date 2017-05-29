@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 20:19:32 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/27 00:05:22 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/29 05:52:05 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,12 @@ void	ls_debug_node(t_node *node)
 	{
 		printf("\e[90m    prev        = %p\n", node->prev);
 		printf("\e[90m    next        = %p\n", node->next);
+		printf("\e[94m    username    = %s\n", node->user->pw_name);
+		printf("\e[96m    group       = %s\n", node->group->gr_name);
 		printf("\e[95m    filename    = %s\n", node->filename);
-		printf("\e[93m    stats inode = %llu\n", node->stats->st_ino);
-		printf("\e[94m    stats size  = %llu\n", node->stats->st_size);
+		printf("\e[95m    target      = %s\n", node->target);
+		printf("\e[93m    hard links  = %d\n", node->stats->st_nlink);
+		printf("\e[94m    size        = %llu\n", node->stats->st_size);
 		if (node->is_dir)
 			printf("\e[92m    is_dir      = TRUE\n");
 		else

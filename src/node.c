@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 16:55:29 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/27 00:05:39 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/29 05:51:04 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,16 @@ t_node	*ls_new_node(char *path, char *filename, t_node *prev)
 	new_node->filename = ft_strdup(filename);
 	if (!(new_node->stats = ls_file_lstat(path, filename)))
 		return (NULL);
+	if (!ls_user_infos(new_node))
+		ls_error(filename);
 	if (S_ISDIR(new_node->stats->st_mode))
 		new_node->is_dir = TRUE;
 	if (S_ISLNK(new_node->stats->st_mode))
+	{
 		new_node->is_lnk = TRUE;
+		ls_link_target(path, new_node);
+	}
 	new_node->prev = prev;
-	new_node->next = NULL;
 	return (new_node);
 }
 
@@ -55,10 +59,7 @@ t_node	*ls_add_node(char *path, char *filename, t_node *first)
 
 t_node	*ls_get_last(t_node *first)
 {
-	t_node	*head;
-
-	head = first;
-	while (head->next)
-		head = head->next;
-	return (head);
+	while (first->next)
+		first = first->next;
+	return (first);
 }
