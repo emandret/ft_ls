@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 11:19:20 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/29 09:06:21 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/29 17:21:12 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,13 @@
 
 # include "../libft/src/printf/inc/ft_printf.h"
 
-# include <uuid/uuid.h>
-# include <sys/types.h>
 # include <sys/errno.h>
 # include <sys/stat.h>
 # include <dirent.h>
-# include <stdio.h>
 # include <pwd.h>
 # include <grp.h>
 
-# define IS_DIRLNK(node, opts) (node->types->is_dir || (node->types->is_lnk && !opts->l))
+# define IS_DIRLNK(node) (node->types->is_dir || node->types->is_lnk)
 # define IS_DOTDIR(filename) (!ft_strcmp(filename, ".") || !ft_strcmp(filename, ".."))
 # define IS_HIDDEN(filename) ('.' == *filename || IS_DOTDIR(filename))
 
@@ -99,7 +96,7 @@ void					ls_free_node(t_node *node);
 void					ls_lst_order(t_opts *opts, t_node **first);
 void					ls_lst_free(t_node *first);
 int						ls_lst_size(t_node *first);
-int						ls_lst_dirs(t_opts *opts, t_node *first);
+int						ls_lst_dirs(t_node *first);
 
 /*
 ** stats.c -- Retrieve informations about files
@@ -128,6 +125,11 @@ void					ls_lst_revr(t_node **first);
 */
 t_node					*ls_open_dir(DIR *stream, t_opts *opts, char *path);
 int						ls_probe_dir(t_opts *opts, char *path, char *dirname);
+
+/*
+** utils.c -- Utilities functions
+*/
+int						ls_total_blocks(t_node *first);
 
 /*
 ** print.c -- Printing

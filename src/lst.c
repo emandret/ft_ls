@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 08:55:11 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/29 11:24:09 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/29 12:04:04 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ int		ls_lst_size(t_node *first)
 ** Count the numbers of directories. Symlinks are considered as directories
 */
 
-int		ls_lst_dirs(t_opts *opts, t_node *first)
+int		ls_lst_dirs(t_node *first)
 {
 	int	count;
 
 	count = 0;
 	while (first)
 	{
-		if (IS_DIRLNK(first, opts))
+		if (IS_DIRLNK(first))
 			count++;
 		first = first->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 19:35:29 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/29 08:41:46 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/29 12:08:31 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ls_print(t_opts *opts, t_node *first, t_bool print_dirs)
 	while (first)
 	{
 		if ((!IS_HIDDEN(first->filename) || opts->a) &&
-			(!IS_DIRLNK(first, opts) || print_dirs))
+			(!IS_DIRLNK(first) || print_dirs))
 			color_print(first);
 		first = first->next;
 	}

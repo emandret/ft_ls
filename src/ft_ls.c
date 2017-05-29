@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/08 17:34:09 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/29 08:07:30 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/29 12:07:03 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,15 @@ void	ft_ls(t_opts *opts, t_node *first)
 	content = NULL;
 	ls_lst_order(opts, &first);
 	ls_print(opts, first, FALSE);
-	if (ls_lst_size(first) > 1 && ls_lst_dirs(opts, first) > 0)
+	if (ls_lst_size(first) > 1 && ls_lst_dirs(first) > 0)
 	{
 		opts->path = TRUE;
-		if (ls_lst_size(first) != ls_lst_dirs(opts, first))
+		if (ls_lst_size(first) != ls_lst_dirs(first))
 			opts->endl = TRUE;
 	}
 	while (first)
 	{
-		if (IS_DIRLNK(first, opts))
+		if (first->types->is_dir || (first->types->is_lnk && !opts->l))
 			ls_probe_dir(opts, "", first->filename);
 		first = first->next;
 	}
