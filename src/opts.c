@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/08 17:39:05 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/29 07:48:22 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/29 11:22:22 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ t_opts			*ls_parse_opts(int ac, char **av, int *i)
 
 	if (!(opts = (t_opts*)ft_memalloc(sizeof(t_opts))))
 		return (NULL);
-	while (*i < ac && '-' == av[*i][0] && !ft_strnequ("--", av[*i], 3))
+	while (*i < ac && '-' == av[*i][0] && !ft_strnequ("-", av[*i], 2) &&
+		!ft_strnequ("--", av[*i], 3))
 	{
 		j = 0;
 		while (av[*i][j++])

@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 08:55:11 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/29 09:08:23 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/29 11:24:09 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ int		ls_lst_size(t_node *first)
 {
 	int	size;
 
-	size = 0;
+	if (!first)
+		return (0);
+	size = 1;
 	while ((first = first->next))
 		size++;
 	return (size);
