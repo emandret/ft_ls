@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 16:55:29 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/29 07:47:18 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/29 09:03:12 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,46 +53,16 @@ t_node			*ls_add_node(char *path, char *filename, t_node *first)
 }
 
 /*
-** Order the linked list using the sorting functions
+** Free a node
 */
 
-void			ls_lst_order(t_opts *opts, t_node **first)
+void			ls_free_node(t_node *node)
 {
-	ls_lst_sort(first, &ls_sort_lexi);
-	if (opts->t)
-		ls_lst_sort(first, &ls_sort_time);
-	if (opts->r)
-		ls_lst_revr(first);
-}
-
-/*
-** Count the number of nodes in the linked list
-*/
-
-int				ls_lst_size(t_node *first)
-{
-	int	size;
-
-	size = 0;
-	while ((first = first->next))
-		size++;
-	return (size);
-}
-
-/*
-** Count the numbers of directories. Symlinks are considered as directories
-*/
-
-int				ls_lst_dirs(t_opts *opts, t_node *first)
-{
-	int	count;
-
-	count = 0;
-	while (first)
+	if (node)
 	{
-		if (IS_DIRLNK(first, opts))
-			count++;
-		first = first->next;
+		ft_memdel((void**)&node->filename);
+		ft_memdel((void**)&node->stats);
+		ft_memdel((void**)&node->types);
+		ft_memdel((void**)&node);
 	}
-	return (count);
 }

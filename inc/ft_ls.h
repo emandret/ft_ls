@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 11:19:20 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/29 08:05:11 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/29 09:06:21 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,16 @@ void					ls_error(char *filename);
 t_opts					*ls_parse_opts(int ac, char **av, int *i);
 
 /*
-** node.c -- Linked list functions
+** node.c -- Nodes functions
 */
 t_node					*ls_add_node(char *path, char *filename, t_node *first);
+void					ls_free_node(t_node *node);
+
+/*
+** lst.c -- Linked list functions
+*/
 void					ls_lst_order(t_opts *opts, t_node **first);
+void					ls_lst_free(t_node *first);
 int						ls_lst_size(t_node *first);
 int						ls_lst_dirs(t_opts *opts, t_node *first);
 
