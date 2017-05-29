@@ -6,38 +6,38 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 19:35:29 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/27 11:00:49 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/29 08:05:59 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-static void	print(t_node *node)
+/*
+** Print using colors for the file types
+*/
+
+static void	color_print(t_node *node)
 {
-	if (node->is_dir)
+	if (node->types->is_dir)
 		ft_printf("\e[96m%s\e[39m\n", node->filename);
-	else if (node->is_lnk)
+	else if (node->types->is_lnk)
 		ft_printf("\e[35m%s\e[39m\n", node->filename);
 	else
 		ft_printf("%s\n", node->filename);
 }
 
-void	ls_print(t_opts *opts, t_node *list)
-{
-	while (list)
-	{
-		if (!IS_HIDDEN(list->filename) || opts->a)
-			print(list);
-		list = list->next;
-	}
-}
+/*
+** Print the filename of each node in the linked list. The `print_dirs' parameter
+** must be set to TRUE in order to print directories and symlinks
+*/
 
-void	ls_print_file(t_opts *opts, t_node *list)
+void	ls_print(t_opts *opts, t_node *first, t_bool print_dirs)
 {
-	while (list)
+	while (first)
 	{
-		if (!IS_DIRLNK(list, opts))
-			print(list);
-		list = list->next;
+		if ((!IS_HIDDEN(first->filename) || opts->a) &&
+			(!IS_DIRLNK(first, opts) || print_dirs))
+			color_print(first);
+		first = first->next;
 	}
 }

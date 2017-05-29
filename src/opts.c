@@ -6,14 +6,14 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/08 17:39:05 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/27 00:05:48 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/29 07:48:22 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
 /*
-** Set the options in the structure
+** Set the options in the `opts' structure
 */
 
 static t_bool	set_opts(char c, t_opts *opts)
@@ -36,7 +36,7 @@ static t_bool	set_opts(char c, t_opts *opts)
 }
 
 /*
-** Set the error for an invalid option
+** Output the error for an invalid option. Print the usage.
 */
 
 static void		set_error(char c)
@@ -49,7 +49,7 @@ static void		set_error(char c)
 }
 
 /*
-** Parse the options into the structure, increment the index
+** Parse the options into the `opts' structure, increment the index `i'
 */
 
 t_opts			*ls_parse_opts(int ac, char **av, int *i)

@@ -6,51 +6,69 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 18:24:45 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/29 05:50:46 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/29 07:25:01 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
 /*
-** Get the file stats
+** Obtains information about the file pointed by the full path using lstat(2)
 */
 
-t_stat	*ls_file_lstat(char *path, char *filename)
+t_bool	ls_file_lstats(char *fpath, t_node *node)
 {
-	t_stat	*stats;
-
-	if (!(stats = (t_stat*)ft_memalloc(sizeof(t_stat))))
-		return (NULL);
-	if (!lstat(ft_strjoin(path, filename), stats))
-		return (stats);
-	ls_error(filename);
-	return (NULL);
+	if (!(node->stats = (t_stat*)ft_memalloc(sizeof(t_stat))))
+		return (FALSE);
+	if (lstat(fpath, node->stats) == -1)
+		return (FALSE);
+	return (TRUE);
 }
 
 /*
-** Get the target of a link
+** Set all the supported file types in UNIX
 */
 
-void	ls_link_target(char *path, t_node *node)
+t_bool	ls_file_types(t_node *node)
+{
+	if (!(node->types = (t_types*)ft_memalloc(sizeof(t_types))))
+		return (FALSE);
+	node->types->is_reg = (t_bool)S_ISREG(node->stats->st_mode);
+	node->types->is_dir = (t_bool)S_ISDIR(node->stats->st_mode);
+	node->types->is_lnk = (t_bool)S_ISLNK(node->stats->st_mode);
+	node->types->is_chr = (t_bool)S_ISCHR(node->stats->st_mode);
+	node->types->is_blk = (t_bool)S_ISBLK(node->stats->st_mode);
+	node->types->is_fifo = (t_bool)S_ISFIFO(node->stats->st_mode);
+	node->types->is_sock = (t_bool)S_ISSOCK(node->stats->st_mode);
+	return (TRUE);
+}
+
+/*
+** Set the target (pointed file) of symbolic link (symlink)
+*/
+
+t_bool	ls_link_target(char *fpath, t_node *node)
 {
 	ssize_t	ret;
 
-	if ((ret = readlink(ft_strjoin(path, node->filename), node->target, 255))
-		!= -1)
+	if (node->types->is_lnk)
+	{
+		if ((ret = readlink(fpath, node->target, 255)) == -1)
+			return (FALSE);
 		node->target[ret] = '\0';
-	else
-		ls_error(node->filename);
+	}
+	return (TRUE);
 }
 
 /*
-** Get the user and group structures
+** Set the user and group informations for a given file (node)
 */
 
 t_bool	ls_user_infos(t_node *node)
 {
-	if ((node->user = getpwuid(node->stats->st_uid)) &&
-		(node->group = getgrgid(node->stats->st_gid)))
-		return (TRUE);
-	return (FALSE);
+	if (!(node->user = getpwuid(node->stats->st_uid)))
+		return (FALSE);
+	if (!(node->group = getgrgid(node->stats->st_gid)))
+		return (FALSE);
+	return (TRUE);
 }

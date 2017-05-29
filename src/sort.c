@@ -6,16 +6,24 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/11 02:45:17 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/27 00:05:57 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/29 07:05:41 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
+/*
+** Lexicographically compare the filenames
+*/
+
 t_bool	ls_sort_lexi(t_node *n1, t_node *n2)
 {
 	return ((t_bool)(ft_strcmp(n1->filename, n2->filename) > 0));
 }
+
+/*
+** Compare the creation date of the files
+*/
 
 t_bool	ls_sort_time(t_node *n1, t_node *n2)
 {
@@ -23,10 +31,10 @@ t_bool	ls_sort_time(t_node *n1, t_node *n2)
 }
 
 /*
-** Bubble sort
+** Sorting implementation based on bubble sort
 */
 
-void	ls_sort_list(t_node **first, t_bool (*sort)(t_node *n1, t_node *n2))
+void	ls_lst_sort(t_node **first, t_bool (*sort)(t_node *n1, t_node *n2))
 {
 	t_bool	sorted;
 	t_node	*head;
@@ -50,7 +58,11 @@ void	ls_sort_list(t_node **first, t_bool (*sort)(t_node *n1, t_node *n2))
 	}
 }
 
-void	ls_reverse_list(t_node **first)
+/*
+** Reverse the list
+*/
+
+void	ls_lst_revr(t_node **first)
 {
 	t_node	*head;
 	t_node	*prev;
@@ -66,13 +78,4 @@ void	ls_reverse_list(t_node **first)
 	}
 	if (prev)
 		*first = prev->prev;
-}
-
-void	ls_reorder_list(t_opts *opts, t_node **first)
-{
-	ls_sort_list(first, &ls_sort_lexi);
-	if (opts->t)
-		ls_sort_list(first, &ls_sort_time);
-	if (opts->r)
-		ls_reverse_list(first);
 }

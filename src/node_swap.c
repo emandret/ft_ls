@@ -6,13 +6,13 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/16 04:14:52 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/17 18:32:54 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/29 06:59:15 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-void	ls_swap_detached(t_node *n1, t_node *n2)
+static void	ls_swap_detached(t_node *n1, t_node *n2)
 {
 	t_node	*tmp_prev;
 	t_node	*tmp_next;
@@ -33,7 +33,7 @@ void	ls_swap_detached(t_node *n1, t_node *n2)
 	n2->next = tmp_next;
 }
 
-void	ls_swap_attached(t_node *n1, t_node *n2)
+static void	ls_swap_attached(t_node *n1, t_node *n2)
 {
 	if (n1->prev)
 		n1->prev->next = n2;
@@ -45,7 +45,7 @@ void	ls_swap_attached(t_node *n1, t_node *n2)
 	n2->next = n1;
 }
 
-void	ls_swap_nodes(t_node *n1, t_node *n2)
+static void	ls_swap_nodes(t_node *n1, t_node *n2)
 {
 	if ((n1->next == n2 && n2->prev == n1) ||
 		(n2->next == n1 && n1->prev == n2))
