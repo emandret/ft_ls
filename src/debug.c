@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/09 20:19:32 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/29 19:56:03 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/30 17:24:13 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	ls_debug_node(t_node *node)
 		printf("\e[96m    group       = %s\n", node->group->gr_name);
 		printf("\e[95m    filename    = %s\n", node->filename);
 		printf("\e[95m    target      = %s\n", node->target);
-		printf("\e[93m    hard links  = %d\n", node->stats->st_nlink);
-		printf("\e[94m    size        = %llu\n", node->stats->st_size);
+		printf("\e[93m    st_nlink    = %d\n", node->stats->st_nlink);
+		printf("\e[94m    st_size     = %llu\n", node->stats->st_size);
 		if (node->type == 'd')
 			printf("\e[92m    is_dir      = TRUE\n");
 		else

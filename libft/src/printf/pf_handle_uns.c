@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 18:50:49 by emandret          #+#    #+#             */
-/*   Updated: 2017/04/25 20:07:03 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/30 12:23:59 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	no_arg_output(t_buffer *buffer, t_format *format)
 {
+	format->min_field--;
 	if (format->flags.space_left || format->flags.space_right)
 		format->min_field--;
 	pf_compute_num(format, 0);

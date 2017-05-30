@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 23:29:31 by emandret          #+#    #+#             */
-/*   Updated: 2017/04/25 20:06:32 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/30 12:23:50 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	no_arg_output(t_buffer *buffer, t_format *format)
 {
+	format->min_field--;
 	if (format->flags.enforce_sign || format->flags.space_left ||
 		format->flags.space_right)
 		format->min_field--;
