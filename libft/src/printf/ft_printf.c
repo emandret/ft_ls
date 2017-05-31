@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 23:29:31 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/27 08:14:38 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/31 16:05:56 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static int	get_next_arg(const char *s, va_list ap)
 		if (*s != '%')
 			pf_buffer_putchar(buffer, *s++);
 		if (*s == '%')
-			ret = pf_dispatcher(buffer, pf_parser(&s, format, ap), ap, handlers);
+			ret = pf_dispatcher(buffer,
+				pf_parser(&s, format, ap), ap, handlers);
 	}
 	if (ret != -1)
 		ret = pf_buffer_write(buffer);

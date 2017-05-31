@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/16 04:14:52 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/29 06:59:15 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/31 15:30:17 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	ls_swap_nodes(t_node *n1, t_node *n2)
 		ls_swap_detached(n1, n2);
 }
 
-t_bool	ls_swap_first(t_node **first, t_node *n1, t_node *n2)
+t_bool		ls_swap_first(t_node **first, t_node *n1, t_node *n2)
 {
 	ls_swap_nodes(n1, n2);
 	if (n1 == *first || n2 == *first)

@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/11 02:45:17 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/29 07:05:41 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/31 16:41:22 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_bool	ls_sort_lexi(t_node *n1, t_node *n2)
 
 t_bool	ls_sort_time(t_node *n1, t_node *n2)
 {
-	return ((t_bool)(n1->stats->st_ctime < n2->stats->st_ctime));
+	return ((t_bool)(n1->stat->st_ctime < n2->stat->st_ctime));
 }
 
 /*

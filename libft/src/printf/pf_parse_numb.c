@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 23:29:31 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/27 08:13:13 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/31 16:04:34 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	get_numb(const char **s)
 	return (n);
 }
 
-static int	dispatch(const char **s, va_list ap)
+static int	has_asterisk(const char **s, va_list ap)
 {
 	if (**s == '*')
 	{
@@ -38,11 +38,11 @@ void		pf_parse_numb(const char **s, t_format *format, va_list ap)
 	format->precision = 0;
 	format->has_precision = FALSE;
 	if (ft_isdigit(**s) || **s == '*')
-		format->min_field = dispatch(s, ap);
+		format->min_field = has_asterisk(s, ap);
 	if (**s == '.')
 	{
 		(*s)++;
-		format->precision = dispatch(s, ap);
+		format->precision = has_asterisk(s, ap);
 		format->has_precision = TRUE;
 	}
 }

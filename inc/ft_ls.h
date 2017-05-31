@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 11:19:20 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/30 18:15:55 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/31 20:14:43 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,10 @@
 # include <pwd.h>
 # include <grp.h>
 
-# define IS_DIRLNK(node) (node->type == 'd' || node->type == 'l')
-# define IS_DOTDIR(filename) (!ft_strcmp(filename, ".") || !ft_strcmp(filename, ".."))
-# define IS_HIDDEN(filename) ('.' == *filename || IS_DOTDIR(filename))
-
-# define TARGET_SIZE 1024
-# define LENS_SIZE 4
+# define IS_DIRLNK(node) ('d' == node->type || 'l' == node->type)
+# define IS_TRGDIR(node) ('l' == node->type && 'd' == node->target_type)
+# define IS_DOTDIR(name) (!ft_strcmp(name, ".") || !ft_strcmp(name, ".."))
+# define IS_HIDDEN(name) ('.' == *name || IS_DOTDIR(name))
 
 typedef struct dirent	t_dir;
 typedef struct stat		t_stat;
@@ -40,7 +38,7 @@ typedef struct group	t_group;
 typedef struct			s_opts
 {
 	t_bool				l;
-	t_bool				R;
+	t_bool				recu;
 	t_bool				a;
 	t_bool				r;
 	t_bool				t;
@@ -49,14 +47,32 @@ typedef struct			s_opts
 }						t_opts;
 
 /*
-** The node. It contains a lot of informations about a file or a directory
+** The node. It contains a lot of informations about a file or a directory :
+**    + -------------- + ------------------------------- +
+**    | type           | The type of the file            |
+**    + -------------- + ------------------------------- +
+**    | target         | The file pointed by a symlink   |
+**    + -------------- + ------------------------------- +
+**    | target_type    | The type of the pointed target  |
+**    + -------------- + ------------------------------- +
+**    | filename       | The filename                    |
+**    + -------------- + ------------------------------- +
+**    | stat           | The stat structure              |
+**    + -------------- + ------------------------------- +
+**    | user           | The passwd structure            |
+**    + -------------- + ------------------------------- +
+**    | group          | The group structure             |
+**    + -------------- + ------------------------------- +
+**    | prev & next    | Linked list references          |
+**    + -------------- + ------------------------------- +
 */
 typedef struct			s_node
 {
 	char				type;
+	char				target[255];
+	char				target_type;
 	char				*filename;
-	char				target[TARGET_SIZE];
-	t_stat				*stats;
+	t_stat				*stat;
 	t_user				*user;
 	t_group				*group;
 	struct s_node		*prev;
@@ -89,12 +105,9 @@ int						ls_lst_size(t_node *first);
 int						ls_lst_dirs(t_node *first);
 
 /*
-** stats.c -- Retrieve informations about files
+** data.c -- Retrieve informations about files
 */
-t_bool					ls_file_lstats(char *fpath, t_node *node);
-t_bool					ls_file_types(t_node *node);
-t_bool					ls_link_target(char *fpath, t_node *node);
-t_bool					ls_user_infos(t_node *node);
+t_bool					ls_node_data(char *fpath, t_node *node);
 
 /*
 ** node_swap.c -- Swapping functions for doubly linked list
@@ -124,7 +137,6 @@ char					*ls_get_perms(char type, mode_t mode);
 /*
 ** utils.c -- Utilities functions
 */
-char					ls_get_type(mode_t mode);
 size_t					*ls_get_strlens(t_opts *opts, t_node *first);
 int						ls_total_blocks(t_opts *opts, t_node *first);
 char					*ls_get_filetime(time_t last_access);
@@ -132,15 +144,6 @@ char					*ls_get_filetime(time_t last_access);
 /*
 ** print.c -- Printing
 */
-void					ls_print(t_opts *opts, t_node *first,
-	t_bool print_dirs);
-
-
-/* **** DEBUG **** */
-void					ls_debug_opts(t_opts *opts);
-void					ls_debug_node(t_node *node);
-void					ls_debug_list_short(t_node *first);
-void					ls_debug_list(t_node *first);
-/* **** END DEBUG **** */
+void					ls_print(t_opts *opts, t_node *first, t_bool show_d);
 
 #endif

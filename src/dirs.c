@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 12:54:13 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/29 19:56:23 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/31 21:04:08 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,26 @@
 ** Set the new path and append a trailing slash
 */
 
-static char		*set_path(char *path, char *dirname)
+static char	*set_path(char *path, char *dirname)
 {
 	if (IS_DOTDIR(dirname))
 		return (ft_strjoin(dirname, "/"));
-	return (ft_strjoin(ft_strjoin(path, dirname), "/"));
+	if ('/' != dirname[ft_strlen(dirname) - 1])
+		return (ft_strjoin_free(ft_strjoin(path, dirname), "/"));
+	return (dirname);
 }
 
 /*
 ** Print the content of the directory. Print the path header if necessary
 */
 
-static void		print_ctn(t_opts *opts, t_node *first, char *path)
+static void	print_ctn(t_opts *opts, t_node *first, char *path)
 {
-	if (opts->path || (opts->path && opts->R))
+	if (opts->path || (opts->path && opts->recu))
 	{
 		if (opts->endl)
 			ft_putchar('\n');
-		ft_printf("\e[106m\e[30m%.*s:\e[39m\e[49m\n", ft_strlen(path) - 1, path);
+		ft_printf("%.*s:\n", ft_strlen(path) - 1, path);
 	}
 	opts->endl = TRUE;
 	opts->path = TRUE;
@@ -45,7 +47,7 @@ static void		print_ctn(t_opts *opts, t_node *first, char *path)
 ** list. Return the first node of the newly created list
 */
 
-t_node			*ls_open_dir(DIR *stream, t_opts *opts, char *path)
+t_node		*ls_open_dir(DIR *stream, t_opts *opts, char *path)
 {
 	t_dir	*dirent;
 	t_node	*first;
@@ -62,13 +64,14 @@ t_node			*ls_open_dir(DIR *stream, t_opts *opts, char *path)
 ** Use recursion to explore nested directories.
 */
 
-int				ls_probe_dir(t_opts *opts, char *path, char *dirname)
+int			ls_probe_dir(t_opts *opts, char *path, char *dirname)
 {
 	DIR		*stream;
 	t_node	*first;
 	t_node	*head;
 
-	if (!(stream = opendir((path = set_path(path, dirname)))))
+	path = set_path(path, dirname);
+	if (!(stream = opendir(path)))
 	{
 		ls_error(dirname);
 		return (-1);
@@ -79,7 +82,7 @@ int				ls_probe_dir(t_opts *opts, char *path, char *dirname)
 		head = first;
 		while (head)
 		{
-			if (opts->R && head->type == 'd' && !IS_DOTDIR(head->filename) &&
+			if (opts->recu && 'd' == head->type && !IS_DOTDIR(head->filename) &&
 				(!IS_HIDDEN(head->filename) || opts->a))
 				ls_probe_dir(opts, path, head->filename);
 			head = head->next;

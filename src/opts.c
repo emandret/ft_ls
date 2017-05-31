@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/08 17:39:05 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/29 11:22:22 by emandret         ###   ########.fr       */
+/*   Updated: 2017/05/31 15:39:40 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static t_bool	set_opts(char c, t_opts *opts)
 		if ('l' == c)
 			opts->l = TRUE;
 		if ('R' == c)
-			opts->R = TRUE;
+			opts->recu = TRUE;
 		if ('a' == c)
 			opts->a = TRUE;
 		if ('r' == c)
