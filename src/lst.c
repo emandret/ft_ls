@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 08:55:11 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/29 12:04:04 by emandret         ###   ########.fr       */
+/*   Updated: 2017/06/01 02:05:49 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,14 @@ void	ls_lst_order(t_opts *opts, t_node **first)
 void	ls_lst_free(t_node *first)
 {
 	t_node	*head;
+	t_node	*free;
 
 	head = first;
 	while (head)
 	{
+		free = head;
 		head = head->next;
-		ls_free_node(head);
+		ls_free_node(free);
 	}
 }
 

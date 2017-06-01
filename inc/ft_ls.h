@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 11:19:20 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/31 20:14:43 by emandret         ###   ########.fr       */
+/*   Updated: 2017/06/01 02:06:01 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct			s_opts
 typedef struct			s_node
 {
 	char				type;
-	char				target[255];
+	char				target[256];
 	char				target_type;
 	char				*filename;
 	t_stat				*stat;
