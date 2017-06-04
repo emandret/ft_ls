@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 12:02:30 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/31 17:07:10 by emandret         ###   ########.fr       */
+/*   Updated: 2017/06/04 19:23:17 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 ** Update the reference string length `ref' if the `str' length is bigger
 */
 
-static void	set_bigger(char *str, size_t *ref)
+static void	set_bigger(char *str, int *ref)
 {
-	size_t	len;
+	int	len;
 
 	len = ft_strlen(str);
 	if (len > *ref)
@@ -29,11 +29,11 @@ static void	set_bigger(char *str, size_t *ref)
 ** Get the string lengths for `st_nlink', `pw_name', `gr_name' and `st_size'
 */
 
-size_t		*ls_get_strlens(t_opts *opts, t_node *first)
+int			*ls_get_strlens(t_opts *opts, t_node *first)
 {
-	size_t	*lens;
+	int	*lens;
 
-	if (!(lens = (size_t*)ft_memalloc(sizeof(size_t) * 4)))
+	if (!(lens = (int*)ft_memalloc(sizeof(int) * 4)))
 		return (NULL);
 	while (first)
 	{

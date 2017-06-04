@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 11:19:20 by emandret          #+#    #+#             */
-/*   Updated: 2017/06/01 02:06:01 by emandret         ###   ########.fr       */
+/*   Updated: 2017/06/04 19:23:07 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ char					*ls_get_perms(char type, mode_t mode);
 /*
 ** utils.c -- Utilities functions
 */
-size_t					*ls_get_strlens(t_opts *opts, t_node *first);
+int						*ls_get_strlens(t_opts *opts, t_node *first);
 int						ls_total_blocks(t_opts *opts, t_node *first);
 char					*ls_get_filetime(time_t last_access);
 
