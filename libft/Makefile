@@ -6,7 +6,7 @@
 #    By: emandret <emandret@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/19 12:39:07 by emandret          #+#    #+#              #
-#    Updated: 2017/04/21 18:58:53 by emandret         ###   ########.fr        #
+#    Updated: 2017/06/05 05:43:29 by emandret         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ ft_strequ.c ft_striter.c ft_striteri.c ft_strjoin.c ft_strjoin_free.c \
 ft_strlcat.c ft_strlen.c ft_strmap.c ft_strmapi.c ft_strncat.c ft_strncmp.c \
 ft_strncpy.c ft_strnequ.c ft_strnew.c ft_strnstr.c ft_strrchr.c ft_strsplit.c \
 ft_strstr.c ft_strsub.c ft_strtolower.c ft_strtoupper.c ft_strtrim.c \
-ft_tolower.c ft_toupper.c ft_ultoa_base.c ft_wcharlen.c ft_wstrlen.c
+ft_tolower.c ft_toupper.c ft_ultoa_base.c ft_wcharlen.c ft_wstrlen.c \
+ft_chrncpy.c
 
 PRINTF = ft_printf.c pf_buffer.c pf_handle.c pf_handle_chr.c pf_handle_hex.c \
 pf_handle_num.c pf_handle_oct.c pf_handle_ptr.c pf_handle_str.c \

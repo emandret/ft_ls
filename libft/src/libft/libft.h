@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 23:37:31 by emandret          #+#    #+#             */
-/*   Updated: 2017/04/17 10:22:46 by emandret         ###   ########.fr       */
+/*   Updated: 2017/06/05 05:43:13 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 
 # define ABS(x) (x > 0 ? x : -x)
+# define END(s) (s + ft_strlen(s))
 
 /*
 ** Boolean implementation
@@ -44,6 +45,7 @@ void				ft_memdel(void **ap);
 /*
 ** String functions
 */
+char				*ft_chrncpy(char *dest, char c, int n);
 size_t				ft_strlen(const char *s);
 char				*ft_strdup(const char *s);
 char				*ft_strcpy(char *dest, const char *src);

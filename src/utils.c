@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 12:02:30 by emandret          #+#    #+#             */
-/*   Updated: 2017/06/04 19:23:17 by emandret         ###   ########.fr       */
+/*   Updated: 2017/06/05 05:59:01 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int			*ls_get_strlens(t_opts *opts, t_node *first)
 			set_bigger(ft_itoa(first->stat->st_nlink), &lens[0]);
 			set_bigger(first->user->pw_name, &lens[1]);
 			set_bigger(first->group->gr_name, &lens[2]);
-			set_bigger(ft_itoa(first->stat->st_size), &lens[3]);
+			set_bigger(ls_get_devsize(first), &lens[3]);
 		}
 		first = first->next;
 	}
@@ -53,9 +53,9 @@ int			*ls_get_strlens(t_opts *opts, t_node *first)
 ** Compute the total number of block for the linked list
 */
 
-int			ls_total_blocks(t_opts *opts, t_node *first)
+uintmax_t	ls_total_blocks(t_opts *opts, t_node *first)
 {
-	int	total;
+	uintmax_t	total;
 
 	total = 0;
 	while (first)
@@ -65,6 +65,32 @@ int			ls_total_blocks(t_opts *opts, t_node *first)
 		first = first->next;
 	}
 	return (total);
+}
+
+/*
+** Get the size or minor & major device numbers
+*/
+
+char		*ls_get_devsize(t_node *node)
+{
+	char	*devsize;
+	char	*minor;
+	char	*major;
+
+	if ('c' != node->type && 'b' != node->type)
+		return (ft_ultoa_base(node->stat->st_size, 10));
+	if (!(devsize = ft_strnew(10)))
+		return (NULL);
+	ft_chrncpy(devsize, ' ', 2);
+	major = ft_itoa(major(node->stat->st_rdev));
+	ft_strcpy(END(devsize), major);
+	ft_memdel((void**)&major);
+	ft_strcpy(END(devsize), ", ");
+	minor = ft_itoa(minor(node->stat->st_rdev));
+	ft_chrncpy(END(devsize), ' ', 4 - ft_strlen(minor));
+	ft_strcpy(END(devsize), minor);
+	ft_memdel((void**)&minor);
+	return (devsize);
 }
 
 /*

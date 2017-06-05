@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 11:19:20 by emandret          #+#    #+#             */
-/*   Updated: 2017/06/04 19:23:07 by emandret         ###   ########.fr       */
+/*   Updated: 2017/06/05 05:58:45 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libft/src/printf/inc/ft_printf.h"
 
+# include <sys/types.h>
 # include <sys/errno.h>
 # include <sys/stat.h>
 # include <dirent.h>
@@ -138,7 +139,8 @@ char					*ls_get_perms(char type, mode_t mode);
 ** utils.c -- Utilities functions
 */
 int						*ls_get_strlens(t_opts *opts, t_node *first);
-int						ls_total_blocks(t_opts *opts, t_node *first);
+uintmax_t				ls_total_blocks(t_opts *opts, t_node *first);
+char					*ls_get_devsize(t_node *node);
 char					*ls_get_filetime(time_t last_access);
 
 /*
