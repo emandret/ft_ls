@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 11:19:20 by emandret          #+#    #+#             */
-/*   Updated: 2017/06/05 05:58:45 by emandret         ###   ########.fr       */
+/*   Updated: 2017/06/18 06:12:53 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libft/src/printf/inc/ft_printf.h"
 
+# include <sys/xattr.h>
 # include <sys/types.h>
 # include <sys/errno.h>
 # include <sys/stat.h>
@@ -70,6 +71,7 @@ typedef struct			s_opts
 typedef struct			s_node
 {
 	char				type;
+	char				acl;
 	char				target[256];
 	char				target_type;
 	char				*filename;

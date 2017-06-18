@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 19:35:29 by emandret          #+#    #+#             */
-/*   Updated: 2017/06/05 05:48:01 by emandret         ###   ########.fr       */
+/*   Updated: 2017/06/18 06:15:30 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ static void	print_output(t_opts *opts, t_node *node, int *lens)
 {
 	if (opts->l)
 	{
-		ft_printf("%s  %*hu %-*s  %-*s  %*s %s ",
+		ft_printf("%s%c %*hu %-*s  %-*s  %*s %s ",
 			ls_get_perms(node->type, node->stat->st_mode),
+			node->acl,
 			lens[0], node->stat->st_nlink,
 			lens[1], node->user->pw_name,
 			lens[2], node->group->gr_name,

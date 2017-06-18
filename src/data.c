@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/31 17:11:19 by emandret          #+#    #+#             */
-/*   Updated: 2017/05/31 23:26:54 by emandret         ###   ########.fr       */
+/*   Updated: 2017/06/18 06:12:58 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,19 @@ static t_bool	link_data(char *fpath, t_node *node)
 }
 
 /*
+** Get the ACLs (Access Control List) for a file
+*/
+
+static char		get_acl(char *fpath)
+{
+	ssize_t	acl;
+
+	if ((acl = listxattr(fpath, NULL, 1, XATTR_NOFOLLOW)) != -1 && acl)
+		return ('@');
+	return (' ');
+}
+
+/*
 ** Obtains information about the file located at `fpath' using lstat(2) and fill
 ** the node
 */
@@ -79,5 +92,6 @@ t_bool			ls_node_data(char *fpath, t_node *node)
 		return (FALSE);
 	if (!(node->group = getgrgid(node->stat->st_gid)))
 		return (FALSE);
+	node->acl = get_acl(fpath);
 	return (TRUE);
 }
