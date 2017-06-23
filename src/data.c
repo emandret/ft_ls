@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/31 17:11:19 by emandret          #+#    #+#             */
-/*   Updated: 2017/06/18 06:12:58 by emandret         ###   ########.fr       */
+/*   Updated: 2017/06/27 00:30:34 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,9 @@ static char		get_acl(char *fpath)
 
 t_bool			ls_node_data(char *fpath, t_node *node)
 {
+	t_user	*user;
+	t_group	*group;
+
 	if (!(node->stat = (t_stat*)ft_memalloc(sizeof(t_stat))))
 		return (FALSE);
 	if (lstat(fpath, node->stat) == -1)
@@ -88,10 +91,12 @@ t_bool			ls_node_data(char *fpath, t_node *node)
 		return (FALSE);
 	if ('l' == node->type && !link_data(fpath, node))
 		return (FALSE);
-	if (!(node->user = getpwuid(node->stat->st_uid)))
+	if (!(user = getpwuid(node->stat->st_uid)))
 		return (FALSE);
-	if (!(node->group = getgrgid(node->stat->st_gid)))
+	node->pw_name = ft_strdup(user->pw_name);
+	if (!(group = getgrgid(node->stat->st_gid)))
 		return (FALSE);
+	node->gr_name = ft_strdup(group->gr_name);
 	node->acl = get_acl(fpath);
 	return (TRUE);
 }

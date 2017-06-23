@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/07 11:19:20 by emandret          #+#    #+#             */
-/*   Updated: 2017/06/18 06:12:53 by emandret         ###   ########.fr       */
+/*   Updated: 2017/06/27 00:30:19 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ typedef struct			s_node
 	char				target_type;
 	char				*filename;
 	t_stat				*stat;
-	t_user				*user;
-	t_group				*group;
+	char				*pw_name;
+	char				*gr_name;
 	struct s_node		*prev;
 	struct s_node		*next;
 }						t_node;

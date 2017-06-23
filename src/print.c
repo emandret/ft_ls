@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 19:35:29 by emandret          #+#    #+#             */
-/*   Updated: 2017/06/18 06:15:30 by emandret         ###   ########.fr       */
+/*   Updated: 2017/06/27 00:44:05 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void	print_output(t_opts *opts, t_node *node, int *lens)
 			ls_get_perms(node->type, node->stat->st_mode),
 			node->acl,
 			lens[0], node->stat->st_nlink,
-			lens[1], node->user->pw_name,
-			lens[2], node->group->gr_name,
+			lens[1], node->pw_name,
+			lens[2], node->gr_name,
 			lens[3], ls_get_devsize(node),
 			ls_get_filetime(node->stat->st_mtime));
 	}
@@ -49,8 +49,9 @@ void		ls_print(t_opts *opts, t_node *first, t_bool show_d)
 		ft_printf("total %d\n", ls_total_blocks(opts, first));
 	while (first)
 	{
-		if ((!IS_TRGDIR(first) || opts->l) && ('d' != first->type || show_d) &&
-			(!IS_HIDDEN(first->filename) || opts->a))
+		if (('l' == first->type || 'd' != first->target_type || opts->l) &&
+			(!IS_HIDDEN(first->filename) || opts->a) &&
+			('d' != first->type || show_d))
 			print_output(opts, first, lens);
 		first = first->next;
 	}

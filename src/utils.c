@@ -6,7 +6,7 @@
 /*   By: emandret <emandret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 12:02:30 by emandret          #+#    #+#             */
-/*   Updated: 2017/06/05 05:59:01 by emandret         ###   ########.fr       */
+/*   Updated: 2017/06/27 00:29:55 by emandret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int			*ls_get_strlens(t_opts *opts, t_node *first)
 		if (!IS_HIDDEN(first->filename) || opts->a)
 		{
 			set_bigger(ft_itoa(first->stat->st_nlink), &lens[0]);
-			set_bigger(first->user->pw_name, &lens[1]);
-			set_bigger(first->group->gr_name, &lens[2]);
+			set_bigger(first->pw_name, &lens[1]);
+			set_bigger(first->gr_name, &lens[2]);
 			set_bigger(ls_get_devsize(first), &lens[3]);
 		}
 		first = first->next;
